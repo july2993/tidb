@@ -1,6 +1,7 @@
 module github.com/pingcap/tidb
 
 require (
+	cloud.google.com/go v0.39.0 // indirect
 	github.com/BurntSushi/toml v0.3.1
 	github.com/StackExchange/wmi v0.0.0-20180725035823-b12b22c5341f // indirect
 	github.com/blacktear23/go-proxyprotocol v0.0.0-20180807104634-af7a81e8dd0d
@@ -16,13 +17,18 @@ require (
 	github.com/go-ole/go-ole v1.2.1 // indirect
 	github.com/go-sql-driver/mysql v0.0.0-20170715192408-3955978caca4
 	github.com/gogo/protobuf v1.2.0 // indirect
-	github.com/golang/protobuf v1.2.0
-	github.com/google/btree v0.0.0-20180813153112-4030bb1f1f0c
+	github.com/golang/mock v1.3.1 // indirect
+	github.com/golang/protobuf v1.3.1
+	github.com/google/btree v1.0.0
+	github.com/google/go-cmp v0.3.0 // indirect
+	github.com/google/pprof v0.0.0-20190515194954-54271f7e092f // indirect
 	github.com/gorilla/context v1.1.1 // indirect
 	github.com/gorilla/mux v1.6.2
 	github.com/gorilla/websocket v1.4.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.1-0.20190118093823-f849b5445de4
 	github.com/grpc-ecosystem/grpc-gateway v1.5.1 // indirect
+	github.com/hashicorp/golang-lru v0.5.1 // indirect
+	github.com/kisielk/gotool v1.0.0 // indirect
 	github.com/klauspost/cpuid v0.0.0-20170728055534-ae7887de9fa5
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/montanaflynn/stats v0.0.0-20180911141734-db72e6cae808 // indirect
@@ -62,14 +68,22 @@ require (
 	github.com/unrolled/render v0.0.0-20180914162206-b9786414de4d // indirect
 	go.uber.org/atomic v1.3.2
 	go.uber.org/zap v1.9.1
-	golang.org/x/net v0.0.0-20190108225652-1e06a53dbb7e
-	golang.org/x/sys v0.0.0-20190109145017-48ac38b7c8cb // indirect
-	golang.org/x/text v0.3.0
+	golang.org/x/crypto v0.0.0-20190513172903-22d7a77e9e5f // indirect
+	golang.org/x/exp v0.0.0-20190510132918-efd6b22b2522 // indirect
+	golang.org/x/image v0.0.0-20190523035834-f03afa92d3ff // indirect
+	golang.org/x/lint v0.0.0-20190409202823-959b441ac422 // indirect
+	golang.org/x/mobile v0.0.0-20190509164839-32b2708ab171 // indirect
+	golang.org/x/net v0.0.0-20190522155817-f3200d17e092
+	golang.org/x/oauth2 v0.0.0-20190523182746-aaccbc9213b0 // indirect
+	golang.org/x/sys v0.0.0-20190528012530-adf421d2caf4 // indirect
+	golang.org/x/text v0.3.2
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4 // indirect
-	golang.org/x/tools v0.0.0-20190130214255-bb1329dc71a0
-	google.golang.org/genproto v0.0.0-20190108161440-ae2f86662275 // indirect
-	google.golang.org/grpc v1.17.0
+	golang.org/x/tools v0.0.0-20190525145741-7be61e1b0e51
+	google.golang.org/appengine v1.6.0 // indirect
+	google.golang.org/genproto v0.0.0-20190522204451-c2c4e71fbf69 // indirect
+	google.golang.org/grpc v1.21.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
+	honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc // indirect
 	sourcegraph.com/sourcegraph/appdash v0.0.0-20180531100431-4c381bd170b4
 	sourcegraph.com/sourcegraph/appdash-data v0.0.0-20151005221446-73f23eafcf67
 )
