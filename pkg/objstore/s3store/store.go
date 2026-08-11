@@ -17,6 +17,7 @@ package s3store
 import (
 	"context"
 	"fmt"
+	"net/url"
 	"strings"
 
 	alicred "github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth/credentials"
@@ -43,8 +44,17 @@ import (
 
 const (
 	defaultRegion = "us-east-1"
+	gcsProvider   = "gcs"
+	// GCS S3 interoperability documents storage.googleapis.com as the XML API
+	// endpoint for S3-compatible tools.
+	// See https://cloud.google.com/storage/docs/interoperability and
+	// https://cloud.google.com/storage/docs/request-endpoints.
+	gcsEndpoint = "storage.googleapis.com"
 	// to check the cloud type by endpoint tag.
 	domainAliyun = "aliyuncs.com"
+	// Tencent COS supports both its legacy and current endpoint domains.
+	domainTencentcloudLegacy = "myqcloud.com"
+	domainTencentcloud       = "tencentcos.cn"
 )
 
 // NewS3Storage initialize a new s3 storage for metadata.
@@ -306,6 +316,25 @@ func NewS3Storage(ctx context.Context, backend *backuppb.S3, opts *storeapi.Opti
 	return s3Storage, nil
 }
 
+func isGCSS3Compatible(qs *backuppb.S3) bool {
+	if strings.EqualFold(qs.Provider, gcsProvider) {
+		return true
+	}
+	if qs.Endpoint == "" {
+		return false
+	}
+	u, err := url.Parse(qs.Endpoint)
+	if err != nil {
+		return false
+	}
+	host := strings.ToLower(u.Hostname())
+	return host == gcsEndpoint || strings.HasSuffix(host, "."+gcsEndpoint)
+}
+
+func isTencentCOSEndpoint(endpoint string) bool {
+	return strings.Contains(endpoint, domainTencentcloudLegacy) || strings.Contains(endpoint, domainTencentcloud)
+}
+
 // IsObjectLockEnabled checks whether the S3 bucket has Object Lock enabled.
 func IsObjectLockEnabled(svc S3API, options *backuppb.S3) bool {
 	input := &s3.GetObjectLockConfigurationInput{
@@ -352,6 +381,9 @@ func autoNewCred(qs *backuppb.S3) (cred aws.CredentialsProvider, err error) {
 	// if it Contains 'aliyuncs', fetch the sts token.
 	if strings.Contains(endpoint, domainAliyun) {
 		return createOssRAMCred()
+	}
+	if isTencentCOSEndpoint(endpoint) {
+		return createTencentCVMRoleCred()
 	}
 	// other case ,return no error and run default(aws) follow.
 	return nil, nil
